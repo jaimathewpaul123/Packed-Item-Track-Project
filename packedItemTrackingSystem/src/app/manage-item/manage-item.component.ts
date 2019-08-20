@@ -9,7 +9,7 @@ import { ItemService } from '../item.service';
 export class ManageItemComponent implements OnInit {
 
   constructor(private ItemService: ItemService) { }
-  
+
   itemList:any;
   itemVal:string='';
   packedItemCount:number;
@@ -20,7 +20,8 @@ export class ManageItemComponent implements OnInit {
     this.getCount();
   }
 
-  addNewItem(val:string){
+  //To add a new item to the existing list
+  addNewItem(){
     let newItem:any = {
       'value': this.itemVal,
       'packed': false
@@ -30,11 +31,13 @@ export class ManageItemComponent implements OnInit {
     this.getCount();
   }
 
+  //To remove an item from the existing list
   removeItem(index:number){
     this.itemList.splice(index,1);
     this.getCount();
   }
 
+  //To move an item between the packed and unpacked list
   moveItem(event:any, item:any, index:number){
     if(event.target.checked){
       this.itemList[index].packed = true;
@@ -46,6 +49,7 @@ export class ManageItemComponent implements OnInit {
     this.getCount();
   }
 
+  //To mark all unpacked
   markAll(){
     this.itemList.forEach(element => {
       element.packed = false;
@@ -53,11 +57,9 @@ export class ManageItemComponent implements OnInit {
     this.getCount();
   }
 
+  //To get the total count of Packed and Unpacked list
   getCount(){
     this.unPackedItemCount = this.itemList.filter((obj) => obj.packed === false).length;
     this.packedItemCount= this.itemList.length - this.unPackedItemCount;
-
   }
-
-
 }

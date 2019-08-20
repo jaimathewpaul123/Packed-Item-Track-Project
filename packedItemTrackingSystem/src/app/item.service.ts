@@ -42,12 +42,8 @@ export class ItemService {
     'packed': true
   }];
 
+  // return default item list to the component
   getItemList(){
     return this.itemList;
   }
-
-  updateItemList(){
-    
-  }
-
 }
