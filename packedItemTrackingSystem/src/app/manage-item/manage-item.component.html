@@ -1,0 +1,33 @@
+<div class="content">
+    <form class="newItemForm" (ngSubmit)="addNewItem()">
+        <input type="text" class="newItemInput" name="newItem" [(ngModel)]="itemVal">
+        <input type="submit" class="newItemAdd">
+    </form>
+    <section class="unpackedItem">
+        <h2>Unpacked Items <span>({{unPackedItemCount}})</span></h2>
+        <input type="text" [(ngModel)]="unPakedSearchText" class="itemSearch">
+        <article *ngFor="let item of itemList | filter : unPakedSearchText; let i= index">
+            <div *ngIf="!item.packed">
+                <label for="{{i}}">
+                    <input type="checkbox" id="{{i}}" (change) ="moveItem($event,item,i)">
+                    {{item.value}}
+                </label>
+                <button (click)="removeItem(i)" class="itemRemove">Remove</button>
+            </div>
+        </article>
+    </section>
+    <section class="packedItem">
+        <h2>Packed Items<span>({{packedItemCount}})</span></h2>
+        <input type="text" [(ngModel)]="PackedSearchText" class="itemSearch">
+        <article *ngFor="let item of itemList | filter : PackedSearchText; let i= index">
+            <div *ngIf="item.packed">
+                <label for="{{i}}">
+                    <input type="checkbox" id="{{i}}" checked (change) ="moveItem($event,item,i)">
+                    {{item.value}}
+                </label>
+                <button (click)="removeItem(i)" class="itemRemove">Remove</button>
+            </div>
+        </article>
+    </section>
+    <button class="markAllBtn" (click)="markAll()">Mark All As Unpacked</button>
+</div>
